@@ -3,14 +3,13 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SessionController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    $user = [
-        'name' => 'brahim'
-    ];
-    return Inertia::render('welcome', ['user' => $user]);
+
+    return Inertia::render('welcome', ['user' => auth()->user()]);
 })->name('home');
 
 
@@ -21,12 +20,16 @@ Route::get('/about', function () {
 
 // posts
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+
 
 // login
-Route::get('/login', [AuthController::class, 'create'])->name('login');
-Route::post('/login', [AuthController::class, 'store'])->name('login.store');
+Route::get('/login', [SessionController::class, 'create'])->name('login')->middleware('guest');
+Route::post('/login', [SessionController::class, 'store'])->name('login.store')->middleware('guest');
+
+Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout')->middleware('auth');
 
 
 //register
-Route::get('/register', [SessionController::class, 'create'])->name('register');
-Route::post('/register', [SessionController::class, 'store'])->name('register.store');
+Route::get('/register', [AuthController::class, 'create'])->name('register')->middleware('guest');
+Route::post('/register', [AuthController::class, 'store'])->name('register.store')->middleware('guest');

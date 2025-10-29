@@ -12,4 +12,11 @@ class PostController extends Controller
     {
         return Inertia::render('posts/Index');
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'body' => ['required'],
+        ]);
+    }
 }
