@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Http\Request;
@@ -9,7 +10,7 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
 
-    return Inertia::render('welcome', ['user' => auth()->user()]);
+    return Inertia::render('Index', ['user' => auth()->user()]);
 })->name('home');
 
 
@@ -33,3 +34,9 @@ Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout')-
 //register
 Route::get('/register', [AuthController::class, 'create'])->name('register')->middleware('guest');
 Route::post('/register', [AuthController::class, 'store'])->name('register.store')->middleware('guest');
+
+
+// like
+
+Route::post('/like/{post}', [LikeController::class, 'store'])->name('like.store');
+Route::delete('/like/{post}', [LikeController::class, 'destroy'])->name('like.destroy');

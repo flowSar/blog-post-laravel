@@ -48,6 +48,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'flash' => [
                 "error" => Session::get('error'),
+                'success' => Session::get('success'),
             ],
             'auth' => [
                 'user' => $request->user()?->only('id', 'name'),

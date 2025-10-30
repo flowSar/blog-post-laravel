@@ -1,3 +1,5 @@
+import InputError from '@/components/InputError';
+import TextInput from '@/components/TextInput';
 import Layout from '@/layouts/Layout';
 import { useForm, usePage } from '@inertiajs/react';
 
@@ -28,30 +30,11 @@ function Login() {
                 {flash.error && <div className="text-center text-sm text-red-500">{flash.error}</div>}
 
                 <form className="flex flex-col" onSubmit={submitForm}>
-                    <label htmlFor="name" className="mt-4">
-                        Email:{' '}
-                    </label>
-                    <input
-                        type="text"
-                        id="email"
-                        name="email"
-                        value={form.data.email}
-                        onChange={handleFormData}
-                        className="my-2 w-[20rem] rounded-lg bg-white/10 px-4 py-4 focus:outline-none"
-                    />
-                    {form.errors.email ? <p className="text-sm text-red-500">{form.errors.email}</p> : ''}
-                    <label htmlFor="name" className="mt-4">
-                        Pssword:{' '}
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={form.data.password}
-                        onChange={handleFormData}
-                        className="my-2 w-[20rem] rounded-lg bg-white/10 px-4 py-4 focus:outline-none"
-                    />
-                    {form.errors.password ? <p className="text-sm text-red-500">{form.errors.password}</p> : ''}
+                    <TextInput name="email" type="email" label="Email: " value={form.data.email} onChangeInput={handleFormData} />
+                    <InputError error={form.errors.email} />
+
+                    <TextInput name="password" type="password" label="Password: " value={form.data.password} onChangeInput={handleFormData} />
+                    <InputError error={form.errors.password} />
 
                     <div className="self-center">
                         <input
