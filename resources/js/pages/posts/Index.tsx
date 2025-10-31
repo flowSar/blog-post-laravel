@@ -10,11 +10,9 @@ interface IndexProps {
 }
 
 function Index({ posts }: IndexProps) {
-    console.log(posts.data);
+    console.log('posts: ', posts.data);
     const { flash }: any = usePage().props;
     const [visible, setVisible] = useState(false);
-
-    console.log(posts);
 
     useEffect(() => {
         if (flash.error || flash.success) {
@@ -55,6 +53,7 @@ function Index({ posts }: IndexProps) {
                             if (link.url) {
                                 return (
                                     <Link
+                                        key={crypto.randomUUID()}
                                         href={link.url}
                                         dangerouslySetInnerHTML={{ __html: link.label }}
                                         className={`px-4 py-1 duration-200 hover:bg-white/25 ${link.active ? 'bg-white/25 text-blue-500' : ''}`}

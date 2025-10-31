@@ -19,21 +19,10 @@ class PostController extends Controller
         $posts = $posts->through(function ($post) {
 
             $post->liked = $post->likedBy() ? true : false;
+            $post->can_delete = Auth::user()?->can('delete', $post);
 
             return $post;
         });
-
-        // $posts = $posts->map(function ($post) {
-        //     return [
-        //         'id' => $post->id,
-        //         'body' => $post->body,
-        //         'like' => $post->like,
-        //         'liked' => $post->likedBy() ? true : false,
-        //         'user' => $post->user,
-        //         'created_at' => $post->created_at,
-        //         'updated_at' => $post->updated_at,
-        //     ];
-        // });
 
         return Inertia::render('posts/Index', ['posts' => $posts]);
     }
@@ -56,6 +45,9 @@ class PostController extends Controller
     {
 
         $post = Post::with('user')->find($id);
+
+        $post->can_delete = Auth::user()?->can('delete', $post);
+
         $comments = $post->commentsCollection()->with('user')->get();
 
         $post['liked'] = $post->likedBy() ? true : false;
@@ -71,19 +63,18 @@ class PostController extends Controller
         return Inertia::render('posts/Edit', ['post' => $post]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
 
         $attributes = $request->validate([
             'body' => ['required', 'min:3', 'max:100']
         ]);
 
-        $post = Post::find($id);
-        $post = $post->update([
+        $post->update([
             'body' => $attributes['body'],
             // 'updated_at' => Carbon::now(),
         ]);
-        return redirect()->route('post.show', $id)->with('success', 'the post Updated successfully');
+        return redirect()->route('post.show', $post->id)->with('success', 'the post Updated successfully');
         // return back()->with('success', 'the post Updated successfully');
     }
 

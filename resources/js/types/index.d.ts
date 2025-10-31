@@ -39,6 +39,7 @@ interface PostProps {
     like: number;
     liked: boolean;
     comments: boolean;
+    can_delete: boolean;
     created_at: string;
     updated_at: string;
     user: {

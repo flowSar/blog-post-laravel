@@ -25,8 +25,15 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('post.show');
 Route::post('/posts', [PostController::class, 'store'])->name('post.store')->middleware('auth');
 Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('post.edit')->middleware('auth');
-Route::post('/posts/{id}/delete', [PostController::class, 'destroy'])->name('post.delete')->middleware('auth');
-Route::put('/posts/{id}', [PostController::class, 'update'])->name('post.update')->middleware('auth');
+Route::post('/posts/{id}/delete', [PostController::class, 'destroy'])
+    ->name('post.delete')
+    ->middleware('auth')
+    ->can('delete', 'post');
+
+Route::put('/posts/{post}', [PostController::class, 'update'])
+    ->name('post.update')
+    ->middleware('auth')->can('update', 'post');
+
 // Route::get('/posts/{id}/comments', [CommentController::class, 'store']);
 
 // login

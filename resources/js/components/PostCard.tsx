@@ -17,7 +17,9 @@ function PostCard({ post }: PostCardtProps) {
     const toggleMenuVisiblity = (e: any) => {
         e.stopPropagation();
         e.preventDefault();
-        setMenuVisibility((v) => !v);
+        if (post.can_delete) {
+            setMenuVisibility((v) => !v);
+        }
     };
 
     useEffect(() => {
@@ -45,9 +47,16 @@ function PostCard({ post }: PostCardtProps) {
                             <h4 className="text-sm text-gray-500">{post.created_at}</h4>
                         </div>
                     </div>
-                    <button onClick={toggleMenuVisiblity} className="cursor-pointer self-start rounded-full px-2 py-2 duration-200 hover:bg-white/5">
-                        <ThreeDots />
-                    </button>
+                    {post.can_delete ? (
+                        <button
+                            onClick={toggleMenuVisiblity}
+                            className="cursor-pointer self-start rounded-full px-2 py-2 duration-200 hover:bg-white/5"
+                        >
+                            <ThreeDots />
+                        </button>
+                    ) : (
+                        ''
+                    )}
                 </div>
 
                 <p className="mt-4 leading-relaxed whitespace-pre-wrap text-gray-300">{post.body}</p>
