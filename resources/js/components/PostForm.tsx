@@ -47,7 +47,7 @@ function PostForm() {
                             : 'border-gray-700 focus:border-blue-500 focus:ring-blue-500/50'
                     }`}
                     placeholder="What's on your mind?"
-                    rows={6}
+                    rows={2}
                 ></textarea>
 
                 <InputError error={form.errors.body} />

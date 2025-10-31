@@ -22,12 +22,15 @@ Route::get('/about', function () {
 
 // posts
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
-Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
-Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('post.show');
+Route::post('/posts', [PostController::class, 'store'])->name('post.store')->middleware('auth');
+Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('post.edit')->middleware('auth');
+Route::post('/posts/{id}/delete', [PostController::class, 'destroy'])->name('post.delete')->middleware('auth');
+Route::put('/posts/{id}', [PostController::class, 'update'])->name('post.update')->middleware('auth');
 // Route::get('/posts/{id}/comments', [CommentController::class, 'store']);
 
 // login
-Route::get('/login', [SessionController::class, 'create'])->name('login')->middleware('guest');
+Route::get('/login', [SessionController::class, 'create'])->name('login')->middleware('guest')->middleware('guest');
 Route::post('/login', [SessionController::class, 'store'])->name('login.store')->middleware('guest');
 
 Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout')->middleware('auth');
@@ -40,8 +43,8 @@ Route::post('/register', [AuthController::class, 'store'])->name('register.store
 
 // like
 
-Route::post('/like/{id}', [LikeController::class, 'store'])->name('like.store');
-Route::delete('/like/{id}', [LikeController::class, 'destroy'])->name('like.destroy');
+Route::post('/like/{id}', [LikeController::class, 'store'])->name('like.store')->middleware('auth');
+Route::delete('/like/{id}', [LikeController::class, 'destroy'])->name('like.destroy')->middleware('auth');
 
 // comment
-Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store');
+Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');

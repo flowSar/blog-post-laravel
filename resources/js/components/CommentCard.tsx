@@ -1,5 +1,6 @@
 import { CommentProps } from '@/types';
 import { Link } from '@inertiajs/react';
+import LikeIcon from './icons/LikeIcon';
 
 interface CommentCardProps {
     comment: CommentProps;
@@ -27,9 +28,7 @@ function CommentCard({ comment }: CommentCardProps) {
                                 preserveScroll={true}
                                 className="group flex cursor-pointer items-center gap-1.5 text-sm font-medium text-red-400 transition-colors hover:text-red-300"
                             >
-                                <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
-                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                </svg>
+                                <LikeIcon fill={true} />
                                 Unlike
                             </Link>
                         ) : (
@@ -38,13 +37,7 @@ function CommentCard({ comment }: CommentCardProps) {
                                 preserveScroll={true}
                                 className="group flex items-center gap-1.5 text-sm font-medium text-gray-400 transition-colors hover:text-red-400"
                             >
-                                <svg
-                                    className="h-5 w-5 cursor-pointer fill-none stroke-current transition-all group-hover:fill-current"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="2"
-                                >
-                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                </svg>
+                                <LikeIcon />
                                 Like
                             </Link>
                         )}

@@ -1,4 +1,4 @@
-import TextInput from '@/components/TextInput';
+import ThreeDots from '@/components/icons/ThreeDots';
 import Layout from '@/layouts/Layout';
 import { ChangeEvent, useState } from 'react';
 
@@ -30,13 +30,7 @@ function Index({ user }: UserProps) {
     return (
         <>
             <div>
-                <TextInput name="name" label="Name: " value={inputValue.name} onChangeInput={handleInputChange} />
-
-                <TextInput name="email" label="Email: " value={inputValue.email} onChangeInput={handleInputChange} />
-
-                <button className="mt-4 cursor-pointer bg-white/25 px-8 py-2" onClick={() => console.log(inputValue)}>
-                    Print
-                </button>
+                <ThreeDots />
             </div>
         </>
     );

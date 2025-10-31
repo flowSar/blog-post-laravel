@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -57,14 +58,41 @@ class PostController extends Controller
         $post = Post::with('user')->find($id);
         $comments = $post->commentsCollection()->with('user')->get();
 
-        $user = Auth::user();
-
-        if (! $user) {
-
-            return Inertia::render('posts/Show', ['post' => $post]);
-        }
         $post['liked'] = $post->likedBy() ? true : false;
 
         return Inertia::render('posts/Show', ['post' => $post, 'comments' => $comments]);
+    }
+
+    public function edit($id)
+    {
+
+        $post = Post::find($id);
+
+        return Inertia::render('posts/Edit', ['post' => $post]);
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $attributes = $request->validate([
+            'body' => ['required', 'min:3', 'max:100']
+        ]);
+
+        $post = Post::find($id);
+        $post = $post->update([
+            'body' => $attributes['body'],
+            // 'updated_at' => Carbon::now(),
+        ]);
+        return redirect()->route('post.show', $id)->with('success', 'the post Updated successfully');
+        // return back()->with('success', 'the post Updated successfully');
+    }
+
+
+    public function destroy($id)
+    {
+
+        $post = Post::find($id);
+        $post->delete();
+        return back()->with('sucess', 'the post deleted successfully');
     }
 }

@@ -1,25 +1,24 @@
-import CommentCard from '@/components/CommentCard';
-import Divider from '@/components/Divider';
-import PostCard from '@/components/PostCard';
+import { update } from '@/actions/App/Http/Controllers/PostController';
 import Layout from '@/layouts/Layout';
-import { CommentProps, PostProps } from '@/types';
+import { PostProps } from '@/types';
 import { useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
 interface PostPageProps {
     post: PostProps; // the "post" key from Inertia response
-    comments: CommentProps[];
 }
 
-function Show({ post, comments }: PostPageProps) {
+function Edit({ post }: PostPageProps) {
+    console.log('post', post.body);
     const { flash }: any = usePage().props;
     const form = useForm({
-        body: '',
+        body: post.body,
     });
 
-    const handleCommentSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
+    const handlePostSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        form.post(`/posts/${post.id}/comments`);
+        // form.post(`/posts/${post.id}/comments`);
+        form.submit(update(post.id));
     };
 
     useEffect(() => {
@@ -31,34 +30,34 @@ function Show({ post, comments }: PostPageProps) {
     return (
         <>
             <section id="posts" className="mx-2 flex w-4/5 flex-col items-center md:mx-10 md:w-3/5">
-                <PostCard post={post} />
-                <Divider label="Comment" />
-                <form onSubmit={handleCommentSubmit} className="flex w-full flex-col gap-4">
+                <form onSubmit={handlePostSubmit} method="POST" className="flex w-full flex-col gap-4">
                     <textarea
                         name="body"
                         value={form.data.body}
                         onChange={(e) => form.setData(e.target.name as 'body', e.target.value)}
                         className="w-full rounded-2xl bg-white/10 px-4 py-4 focus:outline-none md:h-24"
                         placeholder="Post your repy"
-                        rows={1}
-                    ></textarea>
+                        rows={3}
+                    >
+                        {post.body}
+                    </textarea>
                     <button
                         disabled={form.data.body.trim() || form.processing ? false : true}
                         type="submit"
                         className="cursor-pointer self-end rounded-2xl bg-white/10 px-6 py-2 disabled:cursor-not-allowed"
                     >
-                        Reply
+                        Update
                     </button>
                 </form>
-                <Divider label="Comments" />
-                {comments.map((comment) => (
+                {/* <Divider label="Comments" /> */}
+                {/* {comments.map((comment) => (
                     <CommentCard key={comment.id} comment={comment} />
-                ))}
+                ))} */}
             </section>
         </>
     );
 }
 
-Show.layout = (page: React.ReactNode) => <Layout children={page} />;
+Edit.layout = (page: React.ReactNode) => <Layout children={page} />;
 
-export default Show;
+export default Edit;
