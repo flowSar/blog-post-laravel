@@ -11,7 +11,7 @@ class Post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
 
-    protected $fillable = ['body', 'user_id'];
+    protected $fillable = ['body', 'like', 'user_id', 'comments'];
 
     public function user()
     {
@@ -29,5 +29,10 @@ class Post extends Model
             return null;
         }
         return  Like::where('user_id', Auth::user()->id)->where('post_id', $this->id)->first();
+    }
+
+    public function commentsCollection()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

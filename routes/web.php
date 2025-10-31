@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SessionController;
@@ -23,7 +24,7 @@ Route::get('/about', function () {
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
-
+// Route::get('/posts/{id}/comments', [CommentController::class, 'store']);
 
 // login
 Route::get('/login', [SessionController::class, 'create'])->name('login')->middleware('guest');
@@ -41,3 +42,6 @@ Route::post('/register', [AuthController::class, 'store'])->name('register.store
 
 Route::post('/like/{id}', [LikeController::class, 'store'])->name('like.store');
 Route::delete('/like/{id}', [LikeController::class, 'destroy'])->name('like.destroy');
+
+// comment
+Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store');

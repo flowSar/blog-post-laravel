@@ -55,6 +55,7 @@ class PostController extends Controller
     {
 
         $post = Post::with('user')->find($id);
+        $comments = $post->commentsCollection()->with('user')->get();
 
         $user = Auth::user();
 
@@ -64,6 +65,6 @@ class PostController extends Controller
         }
         $post['liked'] = $post->likedBy() ? true : false;
 
-        return Inertia::render('posts/Show', ['post' => $post]);
+        return Inertia::render('posts/Show', ['post' => $post, 'comments' => $comments]);
     }
 }

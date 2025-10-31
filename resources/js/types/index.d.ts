@@ -38,6 +38,17 @@ interface PostProps {
     body: string;
     like: number;
     liked: boolean;
+    comments: boolean;
+    created_at: string;
+    updated_at: string;
+    user: {
+        name: string;
+    };
+}
+
+interface CommentProps {
+    id: string;
+    body: string;
     created_at: string;
     updated_at: string;
     user: {
