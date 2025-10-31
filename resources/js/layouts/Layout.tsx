@@ -146,6 +146,7 @@ function Layout({ children }: LayoutProps) {
                 </nav>
             </header>
             <main className="mx-auto mt-10 flex max-w-6xl justify-center">{children}</main>
+            <footer className="mt-10 flex h-32 items-center justify-center bg-gray-900"> foot</footer>
         </>
     );
 }

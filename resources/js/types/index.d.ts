@@ -19,3 +19,28 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface PaginationProps<T> {
+    data: T[];
+    first_page_url: string;
+    links: [
+        {
+            url: string;
+            label: string;
+            page: number;
+            active: boolean;
+        },
+    ];
+}
+
+interface PostProps {
+    id: string;
+    body: string;
+    like: number;
+    liked: boolean;
+    created_at: string;
+    updated_at: string;
+    user: {
+        name: string;
+    };
+}

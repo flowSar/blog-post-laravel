@@ -1,4 +1,5 @@
 import { destroy, store } from '@/actions/App/Http/Controllers/LikeController';
+import { show } from '@/actions/App/Http/Controllers/PostController';
 import { Link, useForm } from '@inertiajs/react';
 
 interface PostProps {
@@ -66,7 +67,10 @@ function PostCard({ post }: PostProps) {
                         {post.like} {post.like === 1 ? 'like' : 'likes'}
                     </span>
 
-                    <a className="ml-auto flex cursor-pointer items-center gap-1.5 text-sm font-medium text-gray-400 transition-colors hover:text-gray-300">
+                    <Link
+                        href={show(post.id)}
+                        className="ml-auto flex cursor-pointer items-center gap-1.5 text-sm font-medium text-gray-400 transition-colors hover:text-gray-300"
+                    >
                         <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
                             <path
                                 strokeLinecap="round"
@@ -75,7 +79,7 @@ function PostCard({ post }: PostProps) {
                             />
                         </svg>
                         Comments (0)
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

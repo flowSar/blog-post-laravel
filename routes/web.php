@@ -21,6 +21,7 @@ Route::get('/about', function () {
 
 // posts
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
 
@@ -38,5 +39,5 @@ Route::post('/register', [AuthController::class, 'store'])->name('register.store
 
 // like
 
-Route::post('/like/{post}', [LikeController::class, 'store'])->name('like.store');
-Route::delete('/like/{post}', [LikeController::class, 'destroy'])->name('like.destroy');
+Route::post('/like/{id}', [LikeController::class, 'store'])->name('like.store');
+Route::delete('/like/{id}', [LikeController::class, 'destroy'])->name('like.destroy');

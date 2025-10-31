@@ -24,7 +24,7 @@ function PostForm() {
     }, [flash]);
 
     return (
-        <form className="mx-8 flex w-full flex-col items-center md:mx-0 md:w-3/5" onSubmit={handleFormSubmit}>
+        <form className="mx-2 flex w-full flex-col items-center md:mx-0 md:w-3/5" onSubmit={handleFormSubmit}>
             <div className="w-9/10 rounded-xl border border-gray-800 bg-gray-900 p-6 shadow-lg transition-all duration-200 hover:border-gray-700">
                 <div className="mb-4 flex items-center gap-3">
                     <svg className="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">

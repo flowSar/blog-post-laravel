@@ -13,21 +13,26 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::with('user')->orderBy('created_at', 'desc')->get();
+        // u can use latest()
+        $posts = Post::with('user')->orderBy('created_at', 'desc')->paginate(4);
+        $posts = $posts->through(function ($post) {
 
+            $post->liked = $post->likedBy() ? true : false;
 
-
-        $posts = $posts->map(function ($post) {
-            return [
-                'id' => $post->id,
-                'body' => $post->body,
-                'like' => $post->like,
-                'liked' => $post->likedBy() ? true : false,
-                'user' => $post->user,
-                'created_at' => $post->created_at,
-                'updated_at' => $post->updated_at,
-            ];
+            return $post;
         });
+
+        // $posts = $posts->map(function ($post) {
+        //     return [
+        //         'id' => $post->id,
+        //         'body' => $post->body,
+        //         'like' => $post->like,
+        //         'liked' => $post->likedBy() ? true : false,
+        //         'user' => $post->user,
+        //         'created_at' => $post->created_at,
+        //         'updated_at' => $post->updated_at,
+        //     ];
+        // });
 
         return Inertia::render('posts/Index', ['posts' => $posts]);
     }
@@ -44,5 +49,21 @@ class PostController extends Controller
         }
 
         return back()->with('success', 'post created successfully');
+    }
+
+    public function show($id)
+    {
+
+        $post = Post::with('user')->find($id);
+
+        $user = Auth::user();
+
+        if (! $user) {
+
+            return Inertia::render('posts/Show', ['post' => $post]);
+        }
+        $post['liked'] = $post->likedBy() ? true : false;
+
+        return Inertia::render('posts/Show', ['post' => $post]);
     }
 }

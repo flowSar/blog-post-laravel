@@ -1,27 +1,20 @@
 import PostCard from '@/components/PostCard';
 import PostForm from '@/components/PostForm';
 import Layout from '@/layouts/Layout';
-import { usePage } from '@inertiajs/react';
+import { PaginationProps, PostProps } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
-interface PostProps {
-    id: string;
-    body: string;
-    created_at: string;
-    like: number;
-    liked: boolean;
-    user: {
-        name: string;
-    };
-}
-
 interface IndexProps {
-    posts: PostProps[];
+    posts: PaginationProps<PostProps>;
 }
 
 function Index({ posts }: IndexProps) {
+    console.log(posts.data);
     const { flash }: any = usePage().props;
     const [visible, setVisible] = useState(false);
+
+    console.log(posts);
 
     useEffect(() => {
         if (flash.error || flash.success) {
@@ -53,10 +46,26 @@ function Index({ posts }: IndexProps) {
                     )}
                     <PostForm />
                     <section id="posts" className="mx-2 mt-10 flex flex-col items-center gap-4 md:mx-10 md:w-3/5">
-                        {posts.map((post) => (
-                            <PostCard post={post} />
+                        {posts.data.map((post) => (
+                            <PostCard key={post.id} post={post} />
                         ))}
                     </section>
+                    <div className="mt-4 mb-4">
+                        {posts.links.map((link) => {
+                            if (link.url) {
+                                return (
+                                    <Link
+                                        href={link.url}
+                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                        className={`px-4 py-1 duration-200 hover:bg-white/25 ${link.active ? 'bg-white/25 text-blue-500' : ''}`}
+                                    >
+                                        {}
+                                    </Link>
+                                );
+                            }
+                            return '';
+                        })}
+                    </div>
                 </div>
             </Layout>
         </>
