@@ -49,6 +49,8 @@ interface PostProps {
 interface CommentProps {
     id: string;
     body: string;
+    like: number;
+    liked: boolean;
     created_at: string;
     updated_at: string;
     user: {

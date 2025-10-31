@@ -14,7 +14,7 @@ function PostCard({ post }: PostCardtProps) {
     return (
         <div className="w-full md:w-9/10">
             <Link href={show(post.id)}>
-                <div className="rounded-xl border-b border-gray-800 p-6 shadow-lg transition-all duration-200 hover:border hover:border-gray-700 hover:shadow-xl">
+                <div className="rounded-xl border border-transparent border-b-gray-800 p-6 shadow-lg transition-all duration-200 hover:border hover:border-gray-700 hover:shadow-xl">
                     <div className="flex w-full flex-1 gap-4">
                         <div className="h-14 w-14 flex-shrink-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800 ring-offset-2 ring-offset-gray-900"></div>
                         <div className="flex min-w-0 flex-col justify-center">
