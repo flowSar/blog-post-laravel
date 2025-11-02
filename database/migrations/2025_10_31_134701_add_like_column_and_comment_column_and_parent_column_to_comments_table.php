@@ -25,9 +25,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn('like');
-            $table->dropColumn('comment');
-            $table->dropForeignIdFor(Comment::class);
+            // $table->dropColumn('like');
+            // $table->dropColumn('comment');
+            // $table->dropForeignIdFor(Comment::class);
         });
     }
 };

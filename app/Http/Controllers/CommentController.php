@@ -21,7 +21,7 @@ class CommentController extends Controller
             'body' => ['required', 'max:100']
         ]);
 
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
 
         $comment = $user->comments()->create([
             'body' => $attributes['body'],
@@ -30,7 +30,7 @@ class CommentController extends Controller
         if (!$comment) {
             return back()->with('error', 'commenting failed');
         }
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
 
         $post->update([
             'comments' =>  $post->comments + 1,

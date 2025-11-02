@@ -24,7 +24,7 @@ class LikeController extends Controller
             ]);
 
             // update like count for the post
-            $post = Post::find($id);
+            $post = Post::findOrFail($id);
             Post::where('id', $id)->update([
                 'like' => $post->like + 1,
             ]);
@@ -43,7 +43,7 @@ class LikeController extends Controller
             $like->delete();
 
             // update like count on post
-            $post = Post::find($id);
+            $post = Post::findOrFail($id);
             Post::where('id', $id)->update([
                 'like' => $post->like - 1,
             ]);

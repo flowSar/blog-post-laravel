@@ -44,7 +44,7 @@ class PostController extends Controller
     public function show($id)
     {
 
-        $post = Post::with('user')->find($id);
+        $post = Post::with('user')->findOrFail($id);
 
         $post->can_delete = Auth::user()?->can('delete', $post);
 
@@ -58,7 +58,7 @@ class PostController extends Controller
     public function edit($id)
     {
 
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
 
         return Inertia::render('posts/Edit', ['post' => $post]);
     }
@@ -79,10 +79,10 @@ class PostController extends Controller
     }
 
 
-    public function destroy(Post $post)
+    public function destroy($id)
     {
 
-        // $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->delete();
         return redirect()->route('posts')->with('success', 'the post deleted successfully');
     }

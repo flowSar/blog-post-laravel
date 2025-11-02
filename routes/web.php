@@ -6,10 +6,14 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
+
+    // $posts = DB::select("select * from posts where user_id=?", [1]);
+    // dd($posts);
 
     return Inertia::render('Index', ['user' => auth()->user()]);
 })->name('home');

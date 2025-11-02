@@ -68,6 +68,7 @@ function PostCard({ post }: PostCardtProps) {
                             href={destroy(post.id)}
                             method="delete"
                             preserveScroll={true}
+                            onClick={(e) => e.stopPropagation()}
                             className="group flex cursor-pointer items-center gap-1.5 text-sm font-medium text-red-400 transition-colors hover:text-red-300"
                         >
                             <LikeIcon fill={true} />
@@ -78,6 +79,7 @@ function PostCard({ post }: PostCardtProps) {
                             href={store(post.id)}
                             method="post"
                             preserveScroll={true}
+                            onClick={(e) => e.stopPropagation()}
                             className="group flex items-center gap-1.5 text-sm font-medium text-gray-400 transition-colors hover:text-red-400"
                         >
                             <LikeIcon />
