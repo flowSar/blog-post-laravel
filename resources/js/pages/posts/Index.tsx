@@ -3,7 +3,7 @@ import PostForm from '@/components/PostForm';
 import Layout from '@/layouts/Layout';
 import { PaginationProps, PostProps } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface IndexProps {
     posts: PaginationProps<PostProps>;
@@ -13,13 +13,19 @@ function Index({ posts }: IndexProps) {
     console.log('posts: ', posts.data);
     const { flash }: any = usePage().props;
     const [visible, setVisible] = useState(false);
+    const flashMessageRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (flash.error || flash.success) {
-            setVisible(true);
+            // setVisible(true);
+
+            flashMessageRef.current?.classList.add('flash-msg');
         }
 
-        const timer = setTimeout(() => setVisible(false), 2000);
+        const timer = setTimeout(() => {
+            // setVisible(false);
+            flashMessageRef.current?.classList.remove('flash-msg');
+        }, 2000);
 
         return () => clearTimeout(timer);
     }, [flash]);
@@ -27,17 +33,10 @@ function Index({ posts }: IndexProps) {
     return (
         <>
             <Layout>
-                <div className="mx-8 flex w-full flex-col items-center md:mx-0">
+                <div className="relative mx-8 flex w-full flex-col items-center overflow-x-hidden md:mx-0">
                     {visible && flash.error ? (
                         <p className="text-bold absolute top-6 w-72 rounded-2xl bg-red-500/85 px-8 py-3.5 text-center shadow-md shadow-white/5">
                             {flash.error}
-                        </p>
-                    ) : (
-                        ''
-                    )}
-                    {visible && flash.success ? (
-                        <p className="text-bold absolute top-6 w-72 rounded-2xl bg-green-500/85 px-8 py-3.5 text-center shadow-md shadow-white/5">
-                            {flash.success}
                         </p>
                     ) : (
                         ''
@@ -64,6 +63,12 @@ function Index({ posts }: IndexProps) {
                             }
                             return '';
                         })}
+                    </div>
+                    <div
+                        ref={flashMessageRef}
+                        className="absolute -right-10 bottom-[80vh] hidden h-16 w-96 bg-blue-600 px-6 py-4 text-center text-xl"
+                    >
+                        {flash.success}
                     </div>
                 </div>
             </Layout>
