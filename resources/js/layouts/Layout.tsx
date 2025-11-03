@@ -74,7 +74,7 @@ function Layout({ children }: LayoutProps) {
                                 {auth.user != null ? (
                                     <>
                                         <Link
-                                            href={ProfileController.create()}
+                                            href={ProfileController.create(auth.user.id)}
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-300 transition-all duration-200 hover:bg-gray-800 hover:text-white"
                                         >
                                             <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800"></div>

@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PostPolicy
 {
@@ -37,6 +38,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
+        // dd('update policy');
         return $post->user->is($user);
     }
 
@@ -45,7 +47,8 @@ class PostPolicy
      */
     public function delete(User $user, Post $post): bool
     {
-        return $post->user->is($user);
+
+        return $post->user->is($user) || Auth::user()->role === 'admin';
     }
 
     /**

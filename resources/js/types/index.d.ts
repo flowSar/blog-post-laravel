@@ -42,9 +42,7 @@ interface PostProps {
     can_delete: boolean;
     created_at: string;
     updated_at: string;
-    user: {
-        name: string;
-    };
+    user: UserProps;
 }
 
 interface CommentProps {
@@ -54,7 +52,16 @@ interface CommentProps {
     liked: boolean;
     created_at: string;
     updated_at: string;
-    user: {
-        name: string;
-    };
+    user: UserProps;
+}
+enum ROLE {
+    'user',
+    'admin',
+}
+
+interface UserProps {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
 }

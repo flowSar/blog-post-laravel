@@ -24,14 +24,16 @@ Route::get('/about', function () {
     return Inertia::render('about');
 })->name('about');
 
-Route::get('/profile', [ProfileController::class, 'create'])->name('profile');
+
+Route::get('/profile/{user:id}', [ProfileController::class, 'create'])->name('profile.create');
+Route::get('/profile/{user:id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 
 // posts
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('post.show');
 Route::post('/posts', [PostController::class, 'store'])->name('post.store')->middleware('auth');
-Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('post.edit')->middleware('auth');
+Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('post.edit')->middleware('auth');
 Route::post('/posts/{post}/delete', [PostController::class, 'destroy'])->name('post.delete')->middleware('auth')->can('delete', 'post');
 
 Route::put('/posts/{post}', [PostController::class, 'update'])->name('post.update')->middleware('auth')->can('update', 'post');

@@ -1,5 +1,6 @@
 import { destroy, store } from '@/actions/App/Http/Controllers/LikeController';
 import { destroy as destroyPost, edit, show } from '@/actions/App/Http/Controllers/PostController';
+import ProfileController from '@/actions/App/Http/Controllers/ProfileController';
 import { PostProps } from '@/types';
 import { Link, router } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
@@ -41,7 +42,9 @@ function PostCard({ post }: PostCardtProps) {
             >
                 <div className="flex justify-between">
                     <div className="flex w-full flex-1 gap-4">
-                        <div className="h-14 w-14 flex-shrink-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800 ring-offset-2 ring-offset-gray-900"></div>
+                        <Link href={ProfileController.create(post.user.id)} onClick={(e) => e.stopPropagation()}>
+                            <div className="h-14 w-14 flex-shrink-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800 ring-offset-2 ring-offset-gray-900"></div>
+                        </Link>
                         <div className="flex min-w-0 flex-col justify-center">
                             <h2 className="truncate text-base font-semibold text-gray-100">{post.user.name}</h2>
                             <h4 className="text-sm text-gray-500">{post.created_at}</h4>
@@ -114,7 +117,7 @@ function PostCard({ post }: PostCardtProps) {
                 <Link href={edit(post.id)} className="cursor-pointer py-2">
                     Edit
                 </Link>
-                <Link href={destroyPost(post.id)} method="delete" className="cursor-pointer py-2 text-red-500">
+                <Link href={destroyPost(Number(post.id))} method="delete" className="cursor-pointer py-2 text-red-500">
                     Delete
                 </Link>
             </div>

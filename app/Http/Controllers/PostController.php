@@ -18,7 +18,12 @@ class PostController extends Controller
         $posts = Post::with('user')->orderBy('created_at', 'desc')->paginate(4);
         $posts = $posts->through(function ($post) {
 
-            $post->liked = $post->likedBy() ? true : false;
+            if (Auth::user()) {
+                $post->liked = $post->likedBy(Auth::user()) ? true : false;
+            } else {
+                $post->liked = false;
+            }
+
             $user = Auth::user();
             if ($user?->role === 'admin') {
                 $post->can_delete = true;
@@ -60,8 +65,12 @@ class PostController extends Controller
         }
 
         $comments = $post->commentsCollection()->with('user')->latest()->get();
+        if (Auth::user()) {
+            $post->liked = $post->likedBy(Auth::user()) ? true : false;
+        } else {
+            $post->liked = false;
+        }
 
-        $post['liked'] = $post->likedBy() ? true : false;
 
         return Inertia::render('posts/Show', ['post' => $post, 'comments' => $comments]);
     }
@@ -81,6 +90,12 @@ class PostController extends Controller
             'body' => ['required', 'min:3', 'max:100']
         ]);
 
+        // $isPermitted = Auth::user()->can('update', $post);
+
+        // if (!$isPermitted) {
+        //     abort(403, 'Unuthorized');
+        // }
+
         $post->update([
             'body' => $attributes['body'],
             // 'updated_at' => Carbon::now(),
@@ -90,10 +105,10 @@ class PostController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-
-        $post = Post::findOrFail($id);
+        // dd('delete', $id);
+        // $post = Post::findOrFail($id);
         $post->delete();
         return redirect()->route('posts')->with('success', 'the post deleted successfully');
     }

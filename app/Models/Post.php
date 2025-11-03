@@ -23,12 +23,12 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
-    public function likedBy()
+    public function likedBy(User $user)
     {
         if (! Auth::user()) {
             return null;
         }
-        return  Like::where('user_id', Auth::user()->id)->where('post_id', $this->id)->first();
+        return  Like::where('user_id', $user->id)->where('post_id', $this->id)->first();
     }
 
     public function commentsCollection()
