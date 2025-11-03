@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
-use App\Models\Like;
+use App\Http\Controllers\Controller;
 use App\Models\Post;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PostController extends Controller
 {
-
     public function index()
     {
         // u can use latest()
@@ -19,13 +17,8 @@ class PostController extends Controller
         $posts = $posts->through(function ($post) {
 
             $post->liked = $post->likedBy() ? true : false;
-            $user = Auth::user();
-            if ($user?->role === 'admin') {
-                $post->can_delete = true;
-            } else {
-                $post->can_delete = $user?->can('delete', $post);
-            }
-
+            // admin can delete all posts
+            $post->can_delete = true;
 
             return $post;
         });
@@ -52,14 +45,10 @@ class PostController extends Controller
 
         $post = Post::with('user')->findOrFail($id);
 
-        $user = Auth::user();
-        if ($user?->role === 'admin') {
-            $post->can_delete = true;
-        } else {
-            $post->can_delete = $user?->can('delete', $post);
-        }
+        // admin can delete
+        $post->can_delete = true;
 
-        $comments = $post->commentsCollection()->with('user')->latest()->get();
+        $comments = $post->commentsCollection()->with('user')->get();
 
         $post['liked'] = $post->likedBy() ? true : false;
 

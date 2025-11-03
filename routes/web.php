@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,8 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return Inertia::render('about');
 })->name('about');
+
+Route::get('/profile', [ProfileController::class, 'create'])->name('profile');
 
 
 // posts
@@ -54,3 +57,9 @@ Route::delete('/like/{id}', [LikeController::class, 'destroy'])->name('like.dest
 
 // comment
 Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
+
+
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->name('dshboard')->middleware('auth')->middleware('admin');

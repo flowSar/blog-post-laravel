@@ -52,7 +52,7 @@ class HandleInertiaRequests extends Middleware
                 'success' => Session::get('success'),
             ],
             'auth' => [
-                'user' => $request->user()?->only('id', 'name'),
+                'user' => $request->user()?->only('id', 'name', 'role'),
             ]
 
         ];
