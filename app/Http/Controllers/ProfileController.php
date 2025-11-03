@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follow;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
@@ -14,6 +15,7 @@ class ProfileController extends Controller
     public function create($id)
     {
         $user = User::findOrFail($id);
+
         $posts = Post::with('user')->where('user_id', $user->id)->get();
         $posts = $posts->map(function ($post) use ($user) {
             $post->can_delete = true;
@@ -24,6 +26,14 @@ class ProfileController extends Controller
         });
         // check of the auth is the owener of the profile
         $owner = Auth::user()?->is($user);
+        $authUser = Auth::user();
+
+        if ($authUser) {
+            $followed  = Follow::where('follower_id', $authUser->id)->where('followed_id', $user->id)->get()->first();
+
+            $user->followed_by_auth = $followed ? true : false;
+        }
+
 
         return Inertia::render('profile/Profile', ['posts' => $posts, 'user' => $user, 'owner' => $owner]);
     }

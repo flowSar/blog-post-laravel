@@ -65,6 +65,9 @@ interface UserProps {
     name: string;
     email: string;
     role: string;
+    followers_count: number;
+    following_count: number;
+    followed_by_auth: boolean;
 }
 
 interface ProfileProps {
@@ -76,4 +79,12 @@ interface ProfileProps {
     conver_url: string;
     profile_img_url: string;
     user: UserProps;
+}
+
+interface AuthProps {
+    user: {
+        id: string;
+        name: string;
+        role: string;
+    };
 }

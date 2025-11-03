@@ -6,6 +6,7 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserFollowController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -62,7 +63,12 @@ Route::delete('/like/{id}', [LikeController::class, 'destroy'])->name('like.dest
 Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('comments.store')->middleware('auth');
 
 
-
+// dashboard
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dshboard')->middleware('auth')->middleware('admin');
+
+// following
+
+Route::post('/users/{user}/follow', [UserFollowController::class, 'store']);
+Route::delete('/users/{user}/unfollow', [UserFollowController::class, 'destroy']);
