@@ -16,7 +16,8 @@ Route::get('/', function () {
     // $posts = DB::select("select * from posts where user_id=?", [1]);
     // dd($posts);
 
-    return Inertia::render('Index', ['user' => auth()->user()]);
+    // return Inertia::render('Index', ['user' => auth()->user()]);
+    return redirect()->route('posts');
 })->name('home');
 
 

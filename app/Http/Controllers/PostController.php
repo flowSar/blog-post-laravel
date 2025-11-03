@@ -17,6 +17,8 @@ class PostController extends Controller
         // u can use latest()
         $posts = Post::with('user')->orderBy('created_at', 'desc')->paginate(4);
         $posts = $posts->through(function ($post) {
+            $post->timeAgo = $post->created_at->diffForHumans();
+
 
             if (Auth::user()) {
                 $post->liked = $post->likedBy(Auth::user()) ? true : false;
@@ -56,6 +58,7 @@ class PostController extends Controller
     {
 
         $post = Post::with('user')->findOrFail($id);
+        $post->timeAgo = $post->created_at->diffForHumans();
 
         $user = Auth::user();
         if ($user?->role === 'admin') {

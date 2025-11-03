@@ -47,7 +47,7 @@ function PostCard({ post }: PostCardtProps) {
                         </Link>
                         <div className="flex min-w-0 flex-col justify-center">
                             <h2 className="truncate text-base font-semibold text-gray-100">{post.user.name}</h2>
-                            <h4 className="text-sm text-gray-500">{post.created_at}</h4>
+                            <h4 className="text-sm text-gray-500">{post.timeAgo}</h4>
                         </div>
                     </div>
                     {post.can_delete ? (

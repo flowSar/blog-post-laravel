@@ -40,6 +40,7 @@ interface PostProps {
     liked: boolean;
     comments: boolean;
     can_delete: boolean;
+    timeAgo: string;
     created_at: string;
     updated_at: string;
     user: UserProps;
@@ -64,4 +65,15 @@ interface UserProps {
     name: string;
     email: string;
     role: string;
+}
+
+interface ProfileProps {
+    id: string;
+    name: string;
+    bio: string;
+    location: string;
+    birth_date: string;
+    conver_url: string;
+    profile_img_url: string;
+    user: UserProps;
 }

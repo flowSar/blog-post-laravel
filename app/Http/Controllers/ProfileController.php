@@ -18,6 +18,7 @@ class ProfileController extends Controller
         $posts = $posts->map(function ($post) use ($user) {
             $post->can_delete = true;
             $post->liked = $user ??  $post->likedBy($user) ? true : false;
+            $post->timeAgo = $post->created_at->diffForHumans();
 
             return $post;
         });
