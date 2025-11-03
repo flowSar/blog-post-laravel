@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Follow;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class UserFollowController extends Controller
 {
@@ -46,5 +47,29 @@ class UserFollowController extends Controller
         $user->save();
 
         return back()->with('success', 'unfollowing succeed');
+    }
+
+
+    public function following(User $user)
+    {
+        // $following = $user->following()->with('user')->get();
+        $followingUsers = User::whereIn('id', $user->following()->pluck('followed_id'))->get();
+
+        // dd($followingUsers);
+
+        // dd($following);
+
+        $followers = $user->followers()->with('user')->get();
+
+        return Inertia::render('profile/FollowersPage', ['followers' => $followers, 'followingUsers' => $followingUsers, 'activeTab' => 'following']);
+    }
+
+    public function followers(User $user)
+    {
+        $followingUsers = User::whereIn('id', $user->following()->pluck('followed_id'))->get();
+
+        $followers = $user->followers()->with('user')->get();
+
+        return Inertia::render('profile/FollowersPage', ['followers' => $followers, 'followingUsers' => $followingUsers, 'activeTab' => 'followers']);
     }
 }

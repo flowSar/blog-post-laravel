@@ -42,7 +42,7 @@ function PostCard({ post }: PostCardtProps) {
             >
                 <div className="flex justify-between">
                     <div className="flex w-full flex-1 gap-4">
-                        <Link href={ProfileController.create(post.user.id)} onClick={(e) => e.stopPropagation()}>
+                        <Link href={ProfileController.create(post.user.name)} onClick={(e) => e.stopPropagation()}>
                             <div className="h-14 w-14 flex-shrink-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800 ring-offset-2 ring-offset-gray-900"></div>
                         </Link>
                         <div className="flex min-w-0 flex-col justify-center">

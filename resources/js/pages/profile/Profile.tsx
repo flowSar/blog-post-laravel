@@ -1,10 +1,10 @@
+import ProfileController from '@/actions/App/Http/Controllers/ProfileController';
 import UserFollowController from '@/actions/App/Http/Controllers/UserFollowController';
 import Divider from '@/components/Divider';
 import PostCard from '@/components/PostCard';
-import Layout from '@/layouts/Layout';
 import { PostProps, UserProps } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { ReactNode, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface Props {
     posts: PostProps[];
@@ -66,10 +66,17 @@ function Profile({ posts, user, owner }: Props) {
     };
 
     return (
-        <div className="item-center mx-auto flex min-h-screen w-full flex-1 flex-col md:w-6xl">
+        <div className="item-center mx-auto mt-4 flex min-h-screen w-full flex-1 flex-col md:w-5xl">
             <div className="flex w-full gap-8">
-                <aside className="w-1/4"></aside>
-                <div className="w-2/4">
+                <aside className="flex w-2/10 flex-col items-start px-4 pt-30">
+                    <Link href="/" className="underline-2 cursor-pointer px-4 py-2">
+                        Home
+                    </Link>
+                    <Link href={ProfileController.create(auth.user.name)} className="underline-2 px-4 py-2">
+                        Profile
+                    </Link>
+                </aside>
+                <div className="w-3/4 border-x-1 border-gray-600 px-4">
                     <div id="banner" className="relative h-64 w-full bg-white/5">
                         <div className="absolute -bottom-20 left-6 h-48 w-48 rounded-full bg-white/10"></div>
                     </div>
@@ -78,14 +85,24 @@ function Profile({ posts, user, owner }: Props) {
                         <div>
                             <h1 className="mt-8 text-2xl font-bold">{user.name}</h1>
                             <div className="mt-2 flex gap-4">
-                                <h3 className="space-x-1">
+                                <Link
+                                    href={UserFollowController.following(user.name)}
+                                    method="get"
+                                    as="button"
+                                    className="cursor-pointer space-x-1 hover:underline"
+                                >
                                     <span className='font-md text-xl"'>{user.following_count}</span>
                                     <span className="text-gray-400">Following</span>
-                                </h3>
-                                <h3 className="space-x-1">
+                                </Link>
+                                <Link
+                                    href={UserFollowController.followers(user.name)}
+                                    method="get"
+                                    as="button"
+                                    className="cursor-pointer space-x-1 hover:underline"
+                                >
                                     <span className='font-md text-xl"'>{user.followers_count}</span>
                                     <span className="text-gray-400">Followers</span>
-                                </h3>
+                                </Link>
                             </div>
                         </div>
 
@@ -97,6 +114,7 @@ function Profile({ posts, user, owner }: Props) {
                         </div>
                     </div>
                 </div>
+                <aside className="flex w-2/10 flex-col items-start px-4 pt-30"></aside>
             </div>
             <dialog className="rounded-lg bg-black px-8 py-4 shadow-sm shadow-amber-100" ref={dialogref}>
                 <div className="container">
@@ -143,5 +161,5 @@ function Profile({ posts, user, owner }: Props) {
         </div>
     );
 }
-Profile.layout = (page: ReactNode) => <Layout children={page} />;
+// Profile.layout = (page: ReactNode) => <Layout children={page} />;
 export default Profile;

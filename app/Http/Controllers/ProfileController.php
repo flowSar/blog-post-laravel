@@ -12,9 +12,9 @@ use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
-    public function create($id)
+    public function create(User $user)
     {
-        $user = User::findOrFail($id);
+        // $user = User::findOrFail($id);
 
         $posts = Post::with('user')->where('user_id', $user->id)->get();
         $posts = $posts->map(function ($post) use ($user) {
@@ -38,7 +38,7 @@ class ProfileController extends Controller
         return Inertia::render('profile/Profile', ['posts' => $posts, 'user' => $user, 'owner' => $owner]);
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
         return Inertia::render('profile/Edit');
     }

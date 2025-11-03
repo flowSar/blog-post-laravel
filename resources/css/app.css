@@ -8,6 +8,11 @@
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+body {
+    padding: 0;
+    margin: 0;
+}
+
 .flash-msg {
     display: block;
     animation: slide 0.3s;

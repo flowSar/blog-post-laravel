@@ -26,9 +26,9 @@ Route::get('/about', function () {
     return Inertia::render('about');
 })->name('about');
 
-
-Route::get('/profile/{user:id}', [ProfileController::class, 'create'])->name('profile.create');
-Route::get('/profile/{user:id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+//profile 
+Route::get('/profile/{user:name}', [ProfileController::class, 'create'])->name('profile.create');
+Route::get('/profile/{user:name}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 
 // posts
@@ -72,3 +72,12 @@ Route::get('/dashboard', function () {
 
 Route::post('/users/{user}/follow', [UserFollowController::class, 'store']);
 Route::delete('/users/{user}/unfollow', [UserFollowController::class, 'destroy']);
+
+Route::get('/profile/{user:name}/following', [UserFollowController::class, 'following']);
+
+Route::get('/profile/{user:name}/followers', [UserFollowController::class, 'followers']);
+
+
+Route::get('/test', function () {
+    return Inertia::render('profile/FollowersPage');
+});
