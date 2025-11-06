@@ -1,7 +1,7 @@
 import { destroy, store } from '@/actions/App/Http/Controllers/LikeController';
 import { destroy as destroyPost, edit, show } from '@/actions/App/Http/Controllers/PostController';
 import ProfileController from '@/actions/App/Http/Controllers/ProfileController';
-import { PostProps } from '@/types';
+import { PostProps, ProfileProps } from '@/types';
 import { Link, router } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 import LikeIcon from './icons/LikeIcon';
@@ -9,9 +9,10 @@ import ThreeDots from './icons/ThreeDots';
 
 interface PostCardtProps {
     post: PostProps;
+    profile: ProfileProps;
 }
 
-function PostCard({ post }: PostCardtProps) {
+function PostCard({ post, profile }: PostCardtProps) {
     const [menuVisibility, setMenuVisibility] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -42,8 +43,14 @@ function PostCard({ post }: PostCardtProps) {
             >
                 <div className="flex justify-between">
                     <div className="flex w-full flex-1 gap-4">
-                        <Link href={ProfileController.create(post.user.name)} onClick={(e) => e.stopPropagation()}>
-                            <div className="h-14 w-14 flex-shrink-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800 ring-offset-2 ring-offset-gray-900"></div>
+                        <Link href={ProfileController.show(post.user.name)} onClick={(e) => e.stopPropagation()}>
+                            <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800 ring-offset-2 ring-offset-gray-900">
+                                {profile?.profile_img_url ? (
+                                    <img src={`/storage/${profile.profile_img_url}`} className="h-full w-full object-cover" />
+                                ) : (
+                                    ''
+                                )}
+                            </div>
                         </Link>
                         <div className="flex min-w-0 flex-col justify-center">
                             <h2 className="truncate text-base font-semibold text-gray-100">{post.user.name}</h2>

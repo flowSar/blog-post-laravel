@@ -1,4 +1,5 @@
 import CustomButton from '@/components/CustomButton';
+import TextInput from '@/components/TextInput';
 import Layout from '@/layouts/Layout';
 import { useForm, usePage } from '@inertiajs/react';
 import React from 'react';
@@ -33,53 +34,38 @@ function Register() {
                         form.post('/register');
                     }}
                 >
-                    <label htmlFor="name" className="mt-4">
-                        Name:{' '}
-                    </label>
-                    <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        value={form.data.name}
-                        className="my-2 w-[20rem] rounded-lg bg-white/10 px-4 py-4 focus:outline-none"
-                        onChange={handleFormChange}
-                    />
-                    {form.errors.name ? <p className="text-sm text-red-500">{form.errors.name}</p> : ''}
-                    <label htmlFor="email" className="mt-4">
-                        Email:{' '}
-                    </label>
-                    <input
-                        id="email"
-                        name="email"
-                        type="text"
-                        value={form.data.email}
-                        className="my-2 w-[20rem] rounded-lg bg-white/10 px-4 py-4 focus:outline-none"
-                        onChange={handleFormChange}
-                    />
-                    {form.errors.email ? <p className="text-sm text-red-500">{form.errors.email}</p> : ''}
-                    <label htmlFor="password" className="mt-4">
-                        Password:{' '}
-                    </label>
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={form.data.password}
-                        className="my-2 w-[20rem] rounded-lg bg-white/10 px-4 py-4 focus:outline-none"
-                        onChange={handleFormChange}
-                    />
-                    {form.errors.password ? <p className="text-sm text-red-500">{form.errors.password}</p> : ''}
-                    <label htmlFor="confirmation_password" className="mt-4">
-                        Confirm Password:{' '}
-                    </label>
-                    <input
-                        id="password_confirmation"
-                        name="password_confirmation"
-                        type="password"
-                        value={form.data.password_confirmation}
-                        onChange={handleFormChange}
-                        className="my-2 w-[20rem] rounded-lg bg-white/10 px-4 py-4 focus:outline-none"
-                    />
+                    <div>
+                        <TextInput label="Name:" name={'name'} value={form.data.name} onChangeInput={handleFormChange} className="w-[24rem]" />
+                        {form.errors.name ? <p className="text-sm text-red-500">{form.errors.name}</p> : ''}
+                    </div>
+
+                    <div>
+                        <TextInput label="Email:" name={'email'} value={form.data.email} onChangeInput={handleFormChange} className="w-[24rem]" />
+                        {form.errors.email ? <p className="text-sm text-red-500">{form.errors.email}</p> : ''}
+                    </div>
+
+                    <div>
+                        <TextInput
+                            label="Password:"
+                            type="password"
+                            name={'password'}
+                            value={form.data.password}
+                            onChangeInput={handleFormChange}
+                            className="w-[24rem]"
+                        />
+                        {form.errors.password ? <p className="text-sm text-red-500">{form.errors.password}</p> : ''}
+                    </div>
+
+                    <div>
+                        <TextInput
+                            label="Confirm Password:"
+                            type="password"
+                            name={'password_confirmation'}
+                            value={form.data.password_confirmation}
+                            onChangeInput={handleFormChange}
+                            className="w-[24rem]"
+                        />
+                    </div>
 
                     <div className="text-center">
                         <CustomButton disabled={form.processing} value={form.processing ? 'sumbmiting...' : 'Register'} />

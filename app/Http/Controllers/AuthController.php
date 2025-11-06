@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
@@ -28,6 +30,9 @@ class AuthController extends Controller
             return back()->with('error', 'register failed try again');
         }
 
-        return redirect()->route('login');
+
+        Auth::login($user);
+
+        return redirect()->route('profile.create');
     }
 }

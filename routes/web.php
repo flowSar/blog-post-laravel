@@ -8,12 +8,12 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserFollowController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-
     // $posts = DB::select("select * from posts where user_id=?", [1]);
     // dd($posts);
 
@@ -25,10 +25,18 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return Inertia::render('about');
 })->name('about');
+Route::get('/profile/register', function () {
+    dd('profile/register');
+});
 
 //profile 
-Route::get('/profile/{user:name}', [ProfileController::class, 'create'])->name('profile.create');
+Route::get('/profile/{user:name}', [ProfileController::class, 'show'])->name('profile.show');
 Route::get('/profile/{user:name}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+// Route::post('/profile/{user:name}', [ProfileController::class, 'store'])->name('profile.store');
+Route::put('/profile/{user:name}', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/register/profile', [ProfileController::class, 'create'])->name('profile.create');
+Route::post('/register/profile/{user:name}', [ProfileController::class, 'store'])->name('profile.store');
+
 
 
 // posts
@@ -52,6 +60,7 @@ Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout')-
 //register
 Route::get('/register', [AuthController::class, 'create'])->name('register')->middleware('guest');
 Route::post('/register', [AuthController::class, 'store'])->name('register.store')->middleware('guest');
+
 
 
 // like

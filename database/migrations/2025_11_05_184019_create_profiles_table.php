@@ -15,12 +15,12 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('bio');
-            $table->string('location');
-            $table->date('birth_date');
-            $table->string('conver_url');
-            $table->string('profile_img_url');
-            $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();;
+            $table->text('bio')->nullable();
+            $table->string('location')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->string('cover_img_url')->nullable();
+            $table->string('profile_img_url')->nullable();
+            $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

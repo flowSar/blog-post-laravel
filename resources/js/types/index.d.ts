@@ -70,16 +70,16 @@ interface UserProps {
     followed_by_auth: boolean;
 }
 
-interface ProfileProps {
-    id: string;
-    name: string;
-    bio: string;
-    location: string;
-    birth_date: string;
-    conver_url: string;
-    profile_img_url: string;
-    user: UserProps;
-}
+// interface ProfileProps {
+//     id: string;
+//     name: string;
+//     bio: string;
+//     location: string;
+//     birth_date: string;
+//     conver_url: string;
+//     profile_img_url: string;
+//     user: UserProps;
+// }
 
 interface AuthProps {
     user: {
@@ -87,4 +87,15 @@ interface AuthProps {
         name: string;
         role: string;
     };
+}
+
+interface ProfileProps {
+    id: string;
+    name: string;
+    bio: string;
+    location: string;
+    birth_date: string;
+    cover_img_url: string;
+    profile_img_url: string;
+    created_at: string;
 }

@@ -10,6 +10,7 @@ class Profile extends Model
     /** @use HasFactory<\Database\Factories\ProfileFactory> */
     use HasFactory;
 
+    protected $fillable = ['name', 'bio', 'location', 'birth_date', 'cover_img_url', 'profile_img_url'];
 
     public function user()
     {

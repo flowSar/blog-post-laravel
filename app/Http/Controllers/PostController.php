@@ -15,10 +15,10 @@ class PostController extends Controller
     public function index()
     {
         // u can use latest()
-        $posts = Post::with('user')->orderBy('created_at', 'desc')->paginate(4);
+        $posts = Post::with('user')->latest()->paginate(6);
         $posts = $posts->through(function ($post) {
-            $post->timeAgo = $post->created_at->diffForHumans();
 
+            $post->timeAgo = $post->created_at->diffForHumans();
 
             if (Auth::user()) {
                 $post->liked = $post->likedBy(Auth::user()) ? true : false;
@@ -27,12 +27,8 @@ class PostController extends Controller
             }
 
             $user = Auth::user();
-            if ($user?->role === 'admin') {
-                $post->can_delete = true;
-            } else {
-                $post->can_delete = $user?->can('delete', $post);
-            }
 
+            $post->can_delete = $user?->can('delete', $post);
 
             return $post;
         });
@@ -61,11 +57,9 @@ class PostController extends Controller
         $post->timeAgo = $post->created_at->diffForHumans();
 
         $user = Auth::user();
-        if ($user?->role === 'admin') {
-            $post->can_delete = true;
-        } else {
-            $post->can_delete = $user?->can('delete', $post);
-        }
+
+        $post->can_delete = $user?->can('delete', $post);
+
 
         $comments = $post->commentsCollection()->with('user')->latest()->get();
         if (Auth::user()) {
