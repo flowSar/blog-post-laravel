@@ -22,7 +22,7 @@ function TextInput({ name, label, id, className, type = 'text', value, onChangeI
                 name={name}
                 type={type}
                 value={value}
-                className={twMerge(`my-2 w-[20rem] rounded-lg bg-white/10 px-4 py-4 focus:outline-none`, className)}
+                className={twMerge(`my-2 w-[24rem] rounded-lg px-4 py-4 focus:outline-none dark:bg-white/10`, className)}
                 onChange={onChangeInput}
             />
         </div>

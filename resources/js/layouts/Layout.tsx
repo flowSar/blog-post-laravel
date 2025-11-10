@@ -39,13 +39,13 @@ function Layout({ children }: LayoutProps) {
     return (
         <>
             <div className="flex min-h-screen w-full flex-col">
-                <header className="mt-2">
+                <header className="mt-2 dark:text-gray-300">
                     <nav className="border-b border-gray-800 shadow-lg dark:bg-gray-900">
-                        <div className="mx-auto flex items-center justify-between px-6 py-4">
+                        <div className="mx-auto flex items-center justify-between px-6 py-2">
                             <div className="flex items-center gap-1">
                                 <Link
                                     href="/"
-                                    className="group relative rounded-lg px-4 py-2 text-gray-300 transition-all duration-200 hover:bg-gray-800 hover:text-white"
+                                    className="group relative rounded-lg px-4 py-2 transition-all duration-200 hover:text-blue-500 hover:underline dark:hover:bg-gray-800 dark:hover:text-white"
                                 >
                                     <span className="relative z-10 flex items-center gap-2">
                                         <HomeIcon />
@@ -55,7 +55,7 @@ function Layout({ children }: LayoutProps) {
                                 <Link
                                     preserveScroll
                                     href={index()}
-                                    className="group relative rounded-lg px-4 py-2 text-gray-300 transition-all duration-200 hover:bg-gray-800 hover:text-white"
+                                    className="group relative rounded-lg px-4 py-2 transition-all duration-200 hover:text-blue-500 hover:underline dark:hover:bg-gray-800 dark:hover:text-white"
                                 >
                                     <span className="relative z-10 flex items-center gap-2">
                                         <PostsIcon />
@@ -66,7 +66,7 @@ function Layout({ children }: LayoutProps) {
                                 {auth.user?.role === 'admin' && (
                                     <Link
                                         href="/dashboard"
-                                        className="group relative rounded-lg px-4 py-2 text-gray-300 transition-all duration-200 hover:bg-gray-800 hover:text-white"
+                                        className="group relative rounded-lg px-4 py-2 transition-all duration-200 hover:bg-gray-800 hover:text-white"
                                     >
                                         <span className="relative z-10 flex items-center gap-2">
                                             <DashboardIcon />
@@ -75,8 +75,8 @@ function Layout({ children }: LayoutProps) {
                                     </Link>
                                 )}
                             </div>
-                            <div className="flex items-center gap-2">
-                                <div className="px-2" onClick={toggleTheme}>
+                            <div className="flex items-center gap-4">
+                                <div className="dark:hover-white/20 rounded-md p-3 duration-200 hover:bg-white/10" onClick={toggleTheme}>
                                     {dark ? <SunIcon /> : <MoonIcon />}
                                 </div>
                                 {auth.user != null ? (
@@ -118,7 +118,10 @@ function Layout({ children }: LayoutProps) {
                     </nav>
                 </header>
                 <main className="relative mx-auto mt-10 flex w-full flex-1 justify-center md:w-6xl">{children}</main>
-                <footer className="mt-10 flex h-18 items-center justify-center bg-gray-900"> © 2025 My Website</footer>
+                <footer className="mt-10 flex h-18 items-center justify-center bg-gray-100 text-black dark:bg-gray-900 dark:text-white">
+                    {' '}
+                    © 2025 My Website
+                </footer>
             </div>
         </>
     );
