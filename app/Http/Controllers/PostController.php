@@ -84,7 +84,7 @@ class PostController extends Controller
     {
 
         $attributes = $request->validate([
-            'body' => ['required', 'min:3', 'max:100']
+            'body' => ['required', 'min:3', 'max:200']
         ]);
 
         // $isPermitted = Auth::user()->can('update', $post);

@@ -65,6 +65,7 @@ interface UserProps {
     name: string;
     email: string;
     role: string;
+    created_at: string;
     followers_count: number;
     following_count: number;
     followed_by_auth: boolean;

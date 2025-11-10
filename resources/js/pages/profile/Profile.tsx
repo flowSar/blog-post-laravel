@@ -89,6 +89,10 @@ function Profile({ posts, user, profile, owner }: Props) {
                         {RenderFollowButton()}
                         <div>
                             <h1 className="mt-8 text-2xl font-bold">{user.name}</h1>
+                            <h3 className="text-md mt-2">{profile.bio}</h3>
+                            <h3 className="text-md text-gray-500">
+                                <span className="mr-2">{profile.location}</span> Joined {new Date(user.created_at).toLocaleDateString()}{' '}
+                            </h3>
                             <div className="mt-2 flex gap-4">
                                 <Link
                                     href={UserFollowController.following(user.name)}

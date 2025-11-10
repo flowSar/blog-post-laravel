@@ -46,7 +46,7 @@ Route::post('/posts', [PostController::class, 'store'])->name('post.store')->mid
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('post.edit')->middleware('auth');
 Route::post('/posts/{post}/delete', [PostController::class, 'destroy'])->name('post.delete')->middleware('auth')->can('delete', 'post');
 
-Route::put('/posts/{post}', [PostController::class, 'update'])->name('post.update')->middleware('auth')->can('update', 'post');
+Route::put('/posts/{post:id}', [PostController::class, 'update'])->name('post.update')->middleware('auth')->can('update', 'post');
 
 // Route::get('/posts/{id}/comments', [CommentController::class, 'store']);
 

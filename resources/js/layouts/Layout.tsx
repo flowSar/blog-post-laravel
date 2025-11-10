@@ -6,8 +6,11 @@ import DashboardIcon from '@/components/icons/DashboardIcon';
 import HomeIcon from '@/components/icons/HomeIcon';
 import LoginIcon from '@/components/icons/LoginIcon';
 import LogoutIcon from '@/components/icons/LogoutIcon';
+import MoonIcon from '@/components/icons/MoonIcon';
 import PostsIcon from '@/components/icons/PostsIcon';
 import RegisterIcon from '@/components/icons/RegisterIcon';
+import SunIcon from '@/components/icons/SunIcon';
+import useDarkMode from '@/hooks/useDarkMode';
 import { Link, usePage } from '@inertiajs/react';
 import { ReactNode } from 'react';
 
@@ -30,12 +33,14 @@ interface SharedProps {
 function Layout({ children }: LayoutProps) {
     const { auth }: any = usePage().props;
     console.log('auth: ', auth);
-    // const form = useForm();
+
+    const { dark, toggleTheme } = useDarkMode();
+
     return (
         <>
             <div className="flex min-h-screen w-full flex-col">
                 <header className="mt-2">
-                    <nav className="border-b border-gray-800 bg-gray-900 shadow-lg">
+                    <nav className="border-b border-gray-800 shadow-lg dark:bg-gray-900">
                         <div className="mx-auto flex items-center justify-between px-6 py-4">
                             <div className="flex items-center gap-1">
                                 <Link
@@ -71,6 +76,9 @@ function Layout({ children }: LayoutProps) {
                                 )}
                             </div>
                             <div className="flex items-center gap-2">
+                                <div className="px-2" onClick={toggleTheme}>
+                                    {dark ? <SunIcon /> : <MoonIcon />}
+                                </div>
                                 {auth.user != null ? (
                                     <>
                                         <Link

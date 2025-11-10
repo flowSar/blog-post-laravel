@@ -18,7 +18,7 @@ function Edit({ post }: PostPageProps) {
     const handlePostSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         // form.post(`/posts/${post.id}/comments`);
-        form.submit(update(post.id));
+        form.submit(update(Number(post.id)));
     };
 
     useEffect(() => {
@@ -35,12 +35,13 @@ function Edit({ post }: PostPageProps) {
                         name="body"
                         value={form.data.body}
                         onChange={(e) => form.setData(e.target.name as 'body', e.target.value)}
-                        className="w-full rounded-2xl bg-white/10 px-4 py-4 focus:outline-none md:h-24"
+                        className="w-full rounded-2xl bg-white/10 px-4 py-4 focus:outline-none"
                         placeholder="Post your repy"
-                        rows={3}
+                        rows={5}
                     >
                         {post.body}
                     </textarea>
+                    {form.errors.body ? <p className="text-sm text-red-400">{form.errors.body}</p> : ''}
                     <button
                         disabled={form.data.body.trim() || form.processing ? false : true}
                         type="submit"
