@@ -1,11 +1,11 @@
 import ProfileController from '@/actions/App/Http/Controllers/ProfileController';
 import TextInput from '@/components/TextInput';
-import { UserProps } from '@/types';
+import { UserInterface } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { ChangeEvent, useRef, useState } from 'react';
 
 interface CreateProps {
-    user: UserProps;
+    user: UserInterface;
 }
 
 function Create({ user }: CreateProps) {

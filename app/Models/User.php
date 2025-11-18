@@ -45,6 +45,10 @@ class User extends Authenticatable
         ];
     }
 
+    protected $casts = [
+        'permissions' => 'array',
+    ];
+
     public function posts()
     {
         return $this->hasMany(Post::class);

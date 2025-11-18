@@ -1,8 +1,8 @@
-import { UserProps } from '@/types';
+import { UserInterface } from '@/types';
 import Usercard from './components/Usercard';
 
 interface FollowingPageProps {
-    users: UserProps[];
+    users: UserInterface[];
 }
 
 function Following({ users }: FollowingPageProps) {

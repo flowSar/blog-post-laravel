@@ -1,5 +1,5 @@
 import ProfileController from '@/actions/App/Http/Controllers/ProfileController';
-import { UserProps } from '@/types';
+import { UserInterface } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import Followers from './Followers';
@@ -7,10 +7,10 @@ import Following from './Following';
 
 interface SharedProps {
     activeTab: string;
-    followingUsers: UserProps[];
+    followingUsers: UserInterface[];
     followers: {
         id: number;
-        user: UserProps;
+        user: UserInterface;
     }[];
 }
 

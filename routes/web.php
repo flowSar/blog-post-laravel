@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserFollowController;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +19,10 @@ Route::get('/', function () {
     // $posts = DB::select("select * from posts where user_id=?", [1]);
     // dd($posts);
 
-    // return Inertia::render('Index', ['user' => auth()->user()]);
+
+
+    // $posts = Post::with('user.profile')->get();
+    // return response()->json($posts);
     return redirect()->route('posts');
 })->name('home');
 
@@ -73,9 +78,7 @@ Route::post('/posts/{id}/comments', [CommentController::class, 'store'])->name('
 
 
 // dashboard
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dshboard')->middleware('auth')->middleware('admin');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dshboard')->middleware('auth')->middleware('admin');
 
 // following
 

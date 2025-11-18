@@ -1,20 +1,21 @@
 import { destroy, store } from '@/actions/App/Http/Controllers/LikeController';
 import { destroy as destroyPost, edit, show } from '@/actions/App/Http/Controllers/PostController';
 import ProfileController from '@/actions/App/Http/Controllers/ProfileController';
-import { PostProps, ProfileProps } from '@/types';
+import { PostInterface, ProfileInterface } from '@/types';
 import { Link, router } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 import LikeIcon from './icons/LikeIcon';
 import ThreeDots from './icons/ThreeDots';
 
 interface PostCardtProps {
-    post: PostProps;
-    profile: ProfileProps;
+    post: PostInterface;
+    profile?: ProfileInterface;
 }
 
 function PostCard({ post, profile }: PostCardtProps) {
     const [menuVisibility, setMenuVisibility] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const [userProfile] = useState(profile ?? post.user.profile);
 
     const toggleMenuVisiblity = (e: any) => {
         e.stopPropagation();
@@ -45,16 +46,16 @@ function PostCard({ post, profile }: PostCardtProps) {
                     <div className="flex w-full flex-1 gap-4">
                         <Link href={ProfileController.show(post.user.name)} onClick={(e) => e.stopPropagation()}>
                             <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800 ring-offset-2 ring-offset-gray-900">
-                                {profile?.profile_img_url ? (
-                                    <img src={`/storage/${profile.profile_img_url}`} className="h-full w-full object-cover" />
+                                {userProfile?.profile_img_url ? (
+                                    <img src={`/storage/${userProfile.profile_img_url}`} className="h-full w-full object-cover" />
                                 ) : (
                                     ''
                                 )}
                             </div>
                         </Link>
                         <div className="flex min-w-0 flex-col justify-center">
-                            <h2 className="truncate text-base font-semibold text-gray-100">{post.user.name}</h2>
-                            <h4 className="text-sm text-gray-500">{post.timeAgo}</h4>
+                            <h2 className="truncate text-base font-semibold text-black dark:text-gray-100">{post.user.name}</h2>
+                            <h4 className="text-sm text-black dark:text-gray-500">{post.timeAgo}</h4>
                         </div>
                     </div>
                     {post.can_delete ? (
@@ -69,7 +70,7 @@ function PostCard({ post, profile }: PostCardtProps) {
                     )}
                 </div>
 
-                <p className="mt-4 leading-relaxed whitespace-pre-wrap text-gray-300">{post.body}</p>
+                <p className="mt-4 leading-relaxed whitespace-pre-wrap text-black dark:text-gray-300">{post.body}</p>
 
                 <div className="mt-5 flex items-center gap-6 pt-4">
                     {post.liked ? (

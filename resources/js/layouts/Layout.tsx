@@ -32,7 +32,7 @@ interface SharedProps {
 
 function Layout({ children }: LayoutProps) {
     const { auth }: any = usePage().props;
-    console.log('auth: ', auth);
+    console.log('auth: ', auth.user.profile.profile_img_url);
 
     const { dark, toggleTheme } = useDarkMode();
 
@@ -41,14 +41,14 @@ function Layout({ children }: LayoutProps) {
             <div className="flex min-h-screen w-full flex-col">
                 <header className="mt-2 dark:text-gray-300">
                     <nav className="border-b border-gray-800 shadow-lg dark:bg-gray-900">
-                        <div className="mx-auto flex items-center justify-between px-6 py-2">
+                        <div className="mx-auto flex flex-col items-center justify-between px-6 py-2 md:flex-row">
                             <div className="flex items-center gap-1">
                                 <Link
                                     href="/"
                                     className="group relative rounded-lg px-4 py-2 transition-all duration-200 hover:text-blue-500 hover:underline dark:hover:bg-gray-800 dark:hover:text-white"
                                 >
                                     <span className="relative z-10 flex items-center gap-2">
-                                        <HomeIcon />
+                                        <HomeIcon className="h-6 w-6" />
                                         Home
                                     </span>
                                 </Link>
@@ -85,7 +85,9 @@ function Layout({ children }: LayoutProps) {
                                             href={ProfileController.show(auth.user.name)}
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-300 transition-all duration-200 hover:bg-gray-800 hover:text-white"
                                         >
-                                            <div className="h-8 w-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800"></div>
+                                            <div className="h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800">
+                                                <img src={`/storage/${auth.user.profile.profile_img_url}`} className="h-full w-full object-cover" />
+                                            </div>
                                             <span className="font-medium">{auth.user?.name}</span>
                                         </Link>
                                         <Link method="delete" className="inline-block" href={destroy()}>

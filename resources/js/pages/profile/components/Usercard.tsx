@@ -1,7 +1,7 @@
-import { UserProps } from '@/types';
+import { UserInterface } from '@/types';
 
 interface UsercardProps {
-    user: UserProps;
+    user: UserInterface;
 }
 
 function Usercard({ user }: UsercardProps) {

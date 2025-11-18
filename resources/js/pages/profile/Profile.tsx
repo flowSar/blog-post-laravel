@@ -1,16 +1,18 @@
 import ProfileController from '@/actions/App/Http/Controllers/ProfileController';
 import UserFollowController from '@/actions/App/Http/Controllers/UserFollowController';
 import Divider from '@/components/Divider';
+import HomeIcon from '@/components/icons/HomeIcon';
+import ProfileIcon from '@/components/icons/ProfileIcon';
 import PostCard from '@/components/PostCard';
-import { PostProps, ProfileProps, UserProps } from '@/types';
+import { PostInterface, ProfileInterface, UserInterface } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useRef } from 'react';
 import Modal from './components/Modal';
 
 interface Props {
-    posts: PostProps[];
-    user: UserProps;
-    profile: ProfileProps;
+    posts: PostInterface[];
+    user: UserInterface;
+    profile: ProfileInterface;
     owner: boolean;
 }
 
@@ -67,17 +69,31 @@ function Profile({ posts, user, profile, owner }: Props) {
         <div className="item-center mx-auto mt-4 flex min-h-screen w-full flex-1 flex-col md:w-5xl">
             <div className="flex w-full gap-8">
                 <aside className="flex w-2/10 flex-col items-start px-4 pt-30">
-                    <Link href="/" className="underline-2 cursor-pointer px-4 py-2">
-                        Home
+                    <Link
+                        href="/"
+                        className="underline-2 flex cursor-pointer items-center space-x-2 px-4 px-6 py-2 duration-200 hover:rounded-lg hover:bg-white/10"
+                    >
+                        <HomeIcon />
+                        <span className="text-xl">Home</span>
                     </Link>
-                    <Link href={ProfileController.show(auth.user.name)} className="underline-2 px-4 py-2">
-                        Profile
+                    <Link
+                        href={ProfileController.show(auth.user.name)}
+                        className="underline-2 duration flex items-center space-x-2 px-4 px-6 py-2 hover:rounded-lg hover:bg-white/10"
+                    >
+                        <ProfileIcon />
+                        <span className="text-xl">Profile</span>
                     </Link>
                 </aside>
                 <div className="w-3/4 border-x-1 border-gray-600 px-4">
-                    <div id="banner" className="relative h-64 w-full bg-white/5">
+                    <div className="flex h-12 items-center space-x-4 py-2">
+                        <Link href={'/'} className="cursor-pointer rounded-full px-2 py-2 text-xl font-bold duration-200 hover:bg-white/10">
+                            {'<-'}
+                        </Link>
+                        <h2 className="text-lg font-bold">{profile.name}</h2>
+                    </div>
+                    <div id="banner" className="relative h-52 w-full bg-white/5">
                         {profile?.cover_img_url ? <img src={`/storage/${profile.cover_img_url}`} className="h-full w-full object-cover" /> : ''}
-                        <div className="absolute -bottom-20 left-6 h-48 w-48 overflow-hidden rounded-full bg-white/10">
+                        <div className="absolute -bottom-20 left-4 h-38 w-38 overflow-hidden rounded-full bg-white/10">
                             {profile?.profile_img_url ? (
                                 <img src={`/storage/${profile.profile_img_url}`} className="h-full w-full object-cover" />
                             ) : (

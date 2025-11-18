@@ -1,16 +1,18 @@
 import ThreeDots from '@/components/icons/ThreeDots';
 import Layout from '@/layouts/Layout';
+import { ProfileInterface } from '@/types';
 import { ChangeEvent, useState } from 'react';
 
-interface UserProps {
+interface UserInterface {
     user: {
         name: string;
         email: string;
         id: string;
+        profile: ProfileInterface;
     };
 }
 
-function Index({ user }: UserProps) {
+function Index({ user }: UserInterface) {
     interface InputProps {
         name: string;
         email: string;

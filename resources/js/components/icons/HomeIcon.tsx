@@ -1,6 +1,8 @@
-function HomeIcon() {
+import { twMerge } from 'tailwind-merge';
+
+function HomeIcon({ className }: { className?: string }) {
     return (
-        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+        <svg className={twMerge('h-10 w-10', className)} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
             <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

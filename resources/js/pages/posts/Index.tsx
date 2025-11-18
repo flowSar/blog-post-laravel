@@ -1,12 +1,12 @@
 import PostCard from '@/components/PostCard';
 import PostForm from '@/components/PostForm';
 import Layout from '@/layouts/Layout';
-import { PaginationProps, PostProps } from '@/types';
+import { PaginationProps, PostInterface } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { useEffect, useRef, useState } from 'react';
 
 interface IndexProps {
-    posts: PaginationProps<PostProps>;
+    posts: PaginationProps<PostInterface>;
 }
 
 function Index({ posts }: IndexProps) {

@@ -33,7 +33,7 @@ export interface PaginationProps<T> {
     ];
 }
 
-interface PostProps {
+interface PostInterface {
     id: string;
     body: string;
     like: number;
@@ -43,7 +43,7 @@ interface PostProps {
     timeAgo: string;
     created_at: string;
     updated_at: string;
-    user: UserProps;
+    user: UserInterface;
 }
 
 interface CommentProps {
@@ -53,25 +53,26 @@ interface CommentProps {
     liked: boolean;
     created_at: string;
     updated_at: string;
-    user: UserProps;
+    user: UserInterface;
 }
 enum ROLE {
     'user',
     'admin',
 }
 
-interface UserProps {
+interface UserInterface {
     id: number;
     name: string;
     email: string;
     role: string;
+    profile?: ProfileInterface;
     created_at: string;
     followers_count: number;
     following_count: number;
     followed_by_auth: boolean;
 }
 
-// interface ProfileProps {
+// interface ProfileInterface {
 //     id: string;
 //     name: string;
 //     bio: string;
@@ -79,7 +80,7 @@ interface UserProps {
 //     birth_date: string;
 //     conver_url: string;
 //     profile_img_url: string;
-//     user: UserProps;
+//     user: UserInterface;
 // }
 
 interface AuthProps {
@@ -90,7 +91,7 @@ interface AuthProps {
     };
 }
 
-interface ProfileProps {
+interface ProfileInterface {
     id: string;
     name: string;
     bio: string;

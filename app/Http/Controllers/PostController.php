@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Like;
 use App\Models\Post;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -15,7 +13,7 @@ class PostController extends Controller
     public function index()
     {
         // u can use latest()
-        $posts = Post::with('user')->latest()->paginate(6);
+        $posts = Post::with('user.profile')->latest()->paginate(6);
         $posts = $posts->through(function ($post) {
 
             $post->timeAgo = $post->created_at->diffForHumans();
@@ -53,7 +51,7 @@ class PostController extends Controller
     public function show($id)
     {
 
-        $post = Post::with('user')->findOrFail($id);
+        $post = Post::with('user.profile')->findOrFail($id);
         $post->timeAgo = $post->created_at->diffForHumans();
 
         $user = Auth::user();
@@ -61,7 +59,7 @@ class PostController extends Controller
         $post->can_delete = $user?->can('delete', $post);
 
 
-        $comments = $post->commentsCollection()->with('user')->latest()->get();
+        $comments = $post->commentsCollection()->with('user.profile')->latest()->get();
         if (Auth::user()) {
             $post->liked = $post->likedBy(Auth::user()) ? true : false;
         } else {

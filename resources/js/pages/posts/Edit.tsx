@@ -1,11 +1,11 @@
 import { update } from '@/actions/App/Http/Controllers/PostController';
 import Layout from '@/layouts/Layout';
-import { PostProps } from '@/types';
+import { PostInterface } from '@/types';
 import { useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
 interface PostPageProps {
-    post: PostProps; // the "post" key from Inertia response
+    post: PostInterface; // the "post" key from Inertia response
 }
 
 function Edit({ post }: PostPageProps) {

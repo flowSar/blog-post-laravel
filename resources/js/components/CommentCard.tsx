@@ -1,25 +1,32 @@
-import { CommentProps } from '@/types';
+import { CommentProps, ProfileInterface } from '@/types';
 import { Link } from '@inertiajs/react';
 import LikeIcon from './icons/LikeIcon';
 
 interface CommentCardProps {
     comment: CommentProps;
+    profile?: ProfileInterface;
 }
 
-function CommentCard({ comment }: CommentCardProps) {
+function CommentCard({ comment, profile }: CommentCardProps) {
     return (
         <>
             <div className="w-full md:w-9/10">
-                <div className="rounded-xl border border-transparent border-b-gray-800 p-6 shadow-lg transition-all duration-200 hover:border hover:border-gray-700 hover:shadow-xl">
+                <div className="rounded-xl border border-transparent border-b-gray-800 p-6 shadow-lg transition-all duration-200 hover:border hover:border-gray-700 hover:shadow-xl dark:bg-black">
                     <div className="flex w-full flex-1 gap-4">
-                        <div className="h-10 w-10 flex-shrink-0 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800 ring-offset-2 ring-offset-gray-900"></div>
+                        <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full bg-gradient-to-br from-blue-500 to-purple-600 ring-2 ring-gray-800 ring-offset-2 ring-offset-gray-900">
+                            {profile?.profile_img_url ? (
+                                <img src={`/storage/${profile?.profile_img_url}`} className="h-full w-full object-cover" />
+                            ) : (
+                                <></>
+                            )}
+                        </div>
                         <div className="flex min-w-0 flex-col justify-center">
-                            <h2 className="truncate text-base font-semibold text-gray-100">{comment.user.name}</h2>
+                            <h2 className="truncate text-base font-semibold text-black dark:text-gray-100">{comment.user.name}</h2>
                             <h4 className="text-sm text-gray-500">{new Date(comment.created_at).toLocaleTimeString()}</h4>
                         </div>
                     </div>
 
-                    <p className="mt-4 leading-relaxed whitespace-pre-wrap text-gray-300">{comment.body}</p>
+                    <p className="mt-4 leading-relaxed whitespace-pre-wrap text-black dark:text-gray-300">{comment.body}</p>
                     <div className="mt-2 flex items-center gap-6 pt-4">
                         {comment.liked ? (
                             <Link

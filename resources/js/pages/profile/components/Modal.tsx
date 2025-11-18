@@ -1,12 +1,12 @@
 import ProfileController from '@/actions/App/Http/Controllers/ProfileController';
-import { ProfileProps, UserProps } from '@/types';
+import { ProfileInterface, UserInterface } from '@/types';
 import { router, useForm } from '@inertiajs/react';
 import React, { ChangeEvent, useRef, useState } from 'react';
 
 interface ModalProps {
     dialogref: React.RefObject<HTMLDialogElement | null>;
-    profile: ProfileProps;
-    user: UserProps;
+    profile: ProfileInterface;
+    user: UserInterface;
 }
 
 // interface UserProps {

@@ -2,12 +2,12 @@ import CommentCard from '@/components/CommentCard';
 import Divider from '@/components/Divider';
 import PostCard from '@/components/PostCard';
 import Layout from '@/layouts/Layout';
-import { CommentProps, PostProps } from '@/types';
+import { CommentProps, PostInterface } from '@/types';
 import { useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
 
 interface PostPageProps {
-    post: PostProps; // the "post" key from Inertia response
+    post: PostInterface; // the "post" key from Inertia response
     comments: CommentProps[];
 }
 
@@ -38,7 +38,7 @@ function Show({ post, comments }: PostPageProps) {
                         name="body"
                         value={form.data.body}
                         onChange={(e) => form.setData(e.target.name as 'body', e.target.value)}
-                        className="w-full rounded-2xl bg-white/10 px-4 py-4 focus:outline-none md:h-24"
+                        className="mx-4 w-full rounded-xl bg-gray-100 px-4 py-4 focus:outline-none md:h-24 dark:bg-white/10"
                         placeholder="Post your repy"
                         rows={1}
                     ></textarea>
@@ -52,7 +52,7 @@ function Show({ post, comments }: PostPageProps) {
                 </form>
                 <Divider label="Comments" />
                 {comments.map((comment) => (
-                    <CommentCard key={comment.id} comment={comment} />
+                    <CommentCard key={comment.id} comment={comment} profile={comment.user.profile} />
                 ))}
             </section>
         </>
